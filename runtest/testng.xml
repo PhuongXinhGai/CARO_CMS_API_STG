@@ -2,7 +2,10 @@
 <suite name="API Test Suite">
     <test name="API Tests">
         <classes>
-            <class name="APITest"/>
+            <class name="demo.LoginTest"/>
         </classes>
     </test>
+    <listeners>
+        <listener class-name="demo.TestListener" />
+    </listeners>
 </suite>
