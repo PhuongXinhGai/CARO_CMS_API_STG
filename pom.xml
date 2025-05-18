@@ -16,17 +16,20 @@
 
     <dependencies>
         <!-- REST Assured -->
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>4.4.0</version>
+            <version>5.4.0</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- JSONPath support -->
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-path</artifactId>
-            <version>4.4.0</version>
+            <version>5.4.0</version>
         </dependency>
 
         <!-- Lombok support -->
@@ -38,6 +41,7 @@
         </dependency>
 
         <!-- TestNG -->
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
