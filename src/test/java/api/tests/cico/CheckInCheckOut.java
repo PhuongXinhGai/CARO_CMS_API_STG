@@ -1,4 +1,4 @@
-package api.cico;
+package api.tests.cico;
 
 public class CheckInCheckOut {
 }
