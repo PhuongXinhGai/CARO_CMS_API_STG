@@ -69,7 +69,7 @@ public class QuoteFeeTest {
                 .given()
                 .header("Accept", "application/json")
                 .header("Accept-Language", "en-US,en;q=0.9")
-                .header("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIxN2YyNTUxMi0xNDlhLTQ3YWEtYTliNS0yODViMDAwNzE0Y2QiLCJwYXJ0bmVyX3VpZCI6IkRFTU8iLCJjb3Vyc2VfdWlkIjoiREVNTy1ET05HVFJJRVUiLCJ1c2VyX25hbWUiOiJwaHVvbmd0dC1kb25ndHJpZXUiLCJzdGF0dXMiOiJFTkFCTEUiLCJwd2RfZXhwaXJlZF9hdCI6MTc1MjY1MzAxMiwicm9sZV91aWQiOjU1OCwicm9sZV9uYW1lIjoiRnVsbCBRdXnhu4FuIFBUVCIsImV4cCI6MTc1MzE3NTgwMn0.BOyZfaMdHqIVeKirBrRhmJ7NxB0NphtrlPn80rk31sU")
+                .header("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIxN2YyNTUxMi0xNDlhLTQ3YWEtYTliNS0yODViMDAwNzE0Y2QiLCJwYXJ0bmVyX3VpZCI6IkRFTU8iLCJjb3Vyc2VfdWlkIjoiREVNTy1ET05HVFJJRVUiLCJ1c2VyX25hbWUiOiJwaHVvbmd0dC1kb25ndHJpZXUiLCJzdGF0dXMiOiJFTkFCTEUiLCJwd2RfZXhwaXJlZF9hdCI6MTc1MjY1MzAxMiwicm9sZV91aWQiOjU1OCwicm9sZV9uYW1lIjoiRnVsbCBRdXnhu4FuIFBUVCIsImV4cCI6MTc1MzI0MTEzMn0.NBsXrL8xJ6kYNMY3PuFI81CMMHKP_aNSXomNTfro_cc")
                 .header("Content-Type", "application/json")
                 .body(requestBody)
                 .when()
