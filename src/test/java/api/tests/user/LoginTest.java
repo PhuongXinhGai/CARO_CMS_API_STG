@@ -5,8 +5,15 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.FileHelper;
+import java.io.IOException;
 
 import static org.testng.Assert.assertEquals;
+
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
+import models.login.LoginResponse;
+import com.google.gson.Gson;
 
 public class LoginTest {
 
@@ -14,49 +21,59 @@ public class LoginTest {
 
     @BeforeClass
     public void setup() {
-        RestAssured.useRelaxedHTTPSValidation(); // Bỏ qua SSL warning nếu có
+        RestAssured.useRelaxedHTTPSValidation();
     }
 
-    private Response sendLoginRequest(String username, String password) {
-        String requestBody = String.format("{\"user_name\":\"%s\", \"password\":\"%s\"}", username, password);
-
+    private Response sendLoginRequestFromJson(String filePath) throws IOException {
+        String requestBody = FileHelper.readJsonFileAsString(filePath);
         return RestAssured
                 .given()
                 .contentType(ContentType.JSON)
                 .body(requestBody)
-                .post(BASE_URL);
+                .when()
+                .post(BASE_URL)
+                .then()
+                .log().all()
+                .extract().response();
     }
 
     @Test(priority = 1)
-    public void testLoginSuccess() {
-        Response response = sendLoginRequest("phuongtt-chilinh", "4aNefZgJHLO83Qc30N5Bjg==");
-        assertEquals(response.getStatusCode(), 200, "Login thành công phải trả về status 200");
+    public void testLoginSuccess() throws IOException {
+        Response response = sendLoginRequestFromJson("src/test/resources/data/login/case1-login-success.json");
+        assertEquals(response.getStatusCode(), 200);
 
-        // In ra response body để kiểm tra
-        String responseBody = response.getBody().asString();
-        System.out.println("Response Body: " + responseBody);
-
-        // Kiểm tra token trong response body
         String token = response.jsonPath().getString("token");
         System.out.println("Token: " + token);
-        assert token != null && !token.isEmpty() : "Token không được null hoặc rỗng";
+        assert token != null && !token.isEmpty();
+
+        // Assert các thông tin cần thiết
+        Gson gson = new Gson();
+        LoginResponse loginResponse = gson.fromJson(response.getBody().asString(), LoginResponse.class);
+
+        // Gọi phương thức thông qua object loginResponse
+        assertNotNull(loginResponse.getToken());
+        assertEquals(loginResponse.getData().getFull_name(), "Trần Phương");
+        assertEquals(loginResponse.getData().getCourse_info().getName(), "Sân Đông Triều");
+        assertTrue(loginResponse.getData().getPermissions().contains("BOOK_TEE_TIME_VIEW"));
+
+
     }
 
-    @Test (priority = 2)
-    public void testLoginWrongUsername() {
-        Response response = sendLoginRequest("saiuser", "4aNefZgJHLO83Qc30N5Bjg==");
-        assertEquals(response.getStatusCode(), 500, "Sai username phải trả về 400");
+    @Test(priority = 2)
+    public void testLoginWrongUsername() throws IOException {
+        Response response = sendLoginRequestFromJson("src/test/resources/data/login/case2-login-wrong-username.json");
+        assertEquals(response.getStatusCode(), 500,"Expected status code 500 for wrong username, but got: " + response.getStatusCode());
     }
 
-    @Test (priority = 3)
-    public void testLoginWrongPassword() {
-        Response response = sendLoginRequest("phuongtt-chilinh", "saimatkhau");
-        assertEquals(response.getStatusCode(), 400, "Sai password phải trả về 400");
+    @Test(priority = 3)
+    public void testLoginWrongPassword() throws IOException {
+        Response response = sendLoginRequestFromJson("src/test/resources/data/login/case3-login-wrong-password.json");
+        assertEquals(response.getStatusCode(), 400, "Expected status code 400 for wrong password, but got: " + response.getStatusCode());
     }
 
-    @Test (priority = 4)
-    public void testLoginWrongUsernameAndPassword() {
-        Response response = sendLoginRequest("saiuser", "saimatkhau");
-        assertEquals(response.getStatusCode(), 500, "Sai cả user và pass phải trả về 400");
+    @Test(priority = 4)
+    public void testLoginWrongUsernameAndPassword() throws IOException {
+        Response response = sendLoginRequestFromJson("src/test/resources/data/login/case4-login-wrong-userpass.json");
+        assertEquals(response.getStatusCode(), 500, "Expected status code 500 for wrong username and password, but got: " + response.getStatusCode());
     }
 }

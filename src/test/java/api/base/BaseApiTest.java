@@ -22,8 +22,6 @@ public class BaseApiTest {
                 .header("Connection", "keep-alive")
                 .header("Origin", "https://vngolf-portal.vnpaytest.vn")
                 .header("Referer", "https://vngolf-portal.vnpaytest.vn/")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
-                .queryParam("partner_uid", "DEMO")
-                .queryParam("course_uid", "DEMO-DONGTRIEU");
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
     }
 }

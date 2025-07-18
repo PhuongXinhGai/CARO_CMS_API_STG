@@ -63,6 +63,13 @@
             <version>5.0.9</version> <!-- hoặc phiên bản mới nhất -->
         </dependency>
 
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.12</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>

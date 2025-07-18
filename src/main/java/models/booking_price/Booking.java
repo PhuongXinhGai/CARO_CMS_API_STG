@@ -1,4 +1,4 @@
-package models;
+package models.booking_price;
 
 public class Booking {
     private int id;

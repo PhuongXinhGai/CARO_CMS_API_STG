@@ -1,4 +1,4 @@
-package models;
+package models.booking_price;
 import java.util.List;
 
 // ---------------------------

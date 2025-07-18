@@ -15,8 +15,8 @@ import static org.testng.Assert.assertEquals;  // 👈 để dùng assertEquals(
 import static org.hamcrest.Matchers.*;
 import java.util.Map;
 
-import models.BookingPriceResponse;
-import models.Booking;
+import models.booking_price.BookingPriceResponse;
+import models.booking_price.Booking;
 
 
 
@@ -29,6 +29,8 @@ public class BookingPriceTest extends BaseApiTest {
     public void testGetBookingPriceStatus200() {
         // Gửi GET request và kiểm tra status 200
                 requestSpec
+                    .queryParam("partner_uid", "DEMO")
+                    .queryParam("course_uid", "DEMO-DONGTRIEU")
                     .queryParam("booking_date", "15/07/2025")
                 .when()
                     .get("/golf-cms/api/booking/booking-price")
