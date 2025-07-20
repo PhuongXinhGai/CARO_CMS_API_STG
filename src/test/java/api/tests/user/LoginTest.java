@@ -1,11 +1,13 @@
 package api.tests.user;
 
+import api.base.BaseApiTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utils.FileHelper;
+import static utils.Constants.*;
 import java.io.IOException;
 
 import static org.testng.Assert.assertEquals;
@@ -15,10 +17,7 @@ import static org.testng.Assert.assertTrue;
 import models.login.LoginResponse;
 import com.google.gson.Gson;
 
-public class LoginTest {
-
-    private final String BASE_URL = "https://vngolf-backend.vnpaytest.vn/golf-cms/api/user/login";
-
+public class LoginTest extends BaseApiTest {
     @BeforeClass
     public void setup() {
         RestAssured.useRelaxedHTTPSValidation();
@@ -31,7 +30,7 @@ public class LoginTest {
                 .contentType(ContentType.JSON)
                 .body(requestBody)
                 .when()
-                .post(BASE_URL)
+                .post(BASE_URL + LOGIN_ENDPOINT)
                 .then()
                 .log().all()
                 .extract().response();
