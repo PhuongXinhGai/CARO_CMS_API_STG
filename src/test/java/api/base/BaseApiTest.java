@@ -24,4 +24,26 @@ public class BaseApiTest {
                 .header("Referer", "https://vngolf-portal.vnpaytest.vn/")
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
     }
+
+    public static RequestSpecification getDefaultRequestWithToken(String token) {
+        return RestAssured
+                .given()
+                .header("Authorization", "Bearer " + token)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json");
+    }
+
+    public static RequestSpecification getRequestNoAuth() {
+        return RestAssured
+                .given()
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json");
+    }
+
+    public static RequestSpecification getRequestWithParams(String key, String value) {
+        return RestAssured
+                .given()
+                .queryParam(key, value)
+                .header("Content-Type", "application/json");
+    }
 }
